@@ -117,6 +117,9 @@ for (let index = 0; index < posts.length; index++) {
 // Tasti Mi piace
 const allLikeButton = document.querySelectorAll('.like-button');
 
+// Array di id vuoto 
+const myPostsId = [];
+
 // Devo scorrere tutti i bottoni
 for (let i = 0; i < allLikeButton.length; i++) {
 
@@ -128,6 +131,8 @@ for (let i = 0; i < allLikeButton.length; i++) {
             posts[i].likes--;
         } else {
             posts[i].likes++;
+            myPostsId.push(posts[i]['id']);
+            console.log(myPostsId);
         }
 
         // Tolgo e metto la classe al click del bottone
