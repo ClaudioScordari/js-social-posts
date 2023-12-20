@@ -59,6 +59,8 @@ const posts = [
 /*
     - Mi creo il post solo una volta per poi sostituire le chiavi
     - Creare un innerhtml
+    ----------------------------------------------------------------------
+    - Dobbiamo selezionare il tasto del mi piace
 */
 
 // Seleziono container
@@ -96,18 +98,45 @@ for (let index = 0; index < posts.length; index++) {
             <div class="post__footer">
                 <div class="likes js-likes">
                     <div class="likes__cta">
-                        <a class="like-button  js-like-button" href="#" data-postid="1">
+                        <a class="like-button  js-like-button" href="#nogo" data-postid="${index}">
                             <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                             <span class="like-button__label">Mi Piace</span>
                         </a>
                     </div>
     
                     <div class="likes__counter">
-                        Piace a <b id="like-counter-1" class="js-likes-counter">${posts[index].likes}</b> persone
+                        Piace a <b id="like-counter-${index}" class="js-likes-counter">${posts[index].likes}</b> persone
                     </div>
                 </div> 
             </div>
     
         </div>
     `;
+}
+
+// Tasti Mi piace
+const allLikeButton = document.querySelectorAll('.like-button');
+
+// Devo scorrere tutti i bottoni
+for (let i = 0; i < allLikeButton.length; i++) {
+
+    // Aggiungo la classe active ai bottoni
+    allLikeButton[i].addEventListener('click', function () {
+
+        // Se ha la classe tolgo il like di 1, altrimenti lo aggiungo
+        if (allLikeButton[i].classList.contains('like-button--liked')) {
+            posts[i].likes--;
+        } else {
+            posts[i].likes++;
+        }
+
+        // Tolgo e metto la classe al click del bottone
+        allLikeButton[i].classList.toggle('like-button--liked')
+
+        // Mi seleziono l'id del counter
+        const counter = document.getElementById('like-counter-' + i);
+
+        // E lo stampo al suo posto
+        counter.innerHTML = posts[i].likes;
+    });
 }
